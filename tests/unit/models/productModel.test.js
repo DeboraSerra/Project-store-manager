@@ -37,4 +37,20 @@ describe('Testing the products\' model layer', () => {
       expect(response).to.be.deep.equal([mockProducts[0]]);
     });
   });
-})
+  describe('The function addProduct', () => {
+    beforeEach(() => {
+      sinon.stub(conn, 'execute').resolves([{ insertId: 4 }]);
+    });
+    afterEach(() => {
+      sinon.restore();
+    });
+    it('should return an object', async () => {
+      const response = await productModel.addProduct({ name: 'Cellphone' });
+      expect(response).to.be.a('object');
+    });
+    it('should return an object with the id of the new product', async () => {
+      const response = await productModel.addProduct({ name: 'Cellphone' });
+      expect(response).to.be.deep.equal({ id: 4 });
+    });
+  });
+});

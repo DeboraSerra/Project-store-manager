@@ -70,6 +70,56 @@ describe('Tests the products\' service layer', () => {
         const response = await productService.findById(4);
         expect(response.message).to.be.equal('Product not found');
       });
-    })
+    });
+  });
+  describe('The function addProduct', () => {
+    describe('If the name is incorrect', () => {
+      beforeEach(() => {
+        sinon.stub(productModel, 'addProduct').resolves({ id: 4 });
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return an object', async () => {
+        const response = await productService.addProduct({ name: 'Cellphone' });
+        expect(response).to.be.a('object');
+      });
+      it('if there is no name, should return an object with the code 400', async () => {
+        const response = await productService.addProduct({});
+        expect(response.code).to.be.equal(400);
+      });
+      it('if the name has less than 5 letters, should return an object with the code 422', async () => {
+        const response = await productService.addProduct({ name: 'cel' });
+        expect(response.code).to.be.equal(422);
+      });
+      it('if there is no name, should return a message', async () => {
+        const response = await productService.addProduct({});
+        expect(response.message).to.be.equal('"name" is required');
+      });
+      it('if the name has less than 5 letters, should return amessage', async () => {
+        const response = await productService.addProduct({ name: 'cel' });
+        expect(response.message).to.be.equal('"name" length must be at least 5 characters long');
+      });
+    });
+    describe('If the name is correct', () => {
+      beforeEach(() => {
+        sinon.stub(productModel, 'addProduct').resolves({ id: 4 });
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return an object', async () => {
+        const response = await productService.addProduct({ name: 'Cellphone' });
+        expect(response).to.be.a('object');
+      });
+      it('should return an object with the code 201', async () => {
+        const response = await productService.addProduct({ name: 'Cellphone' });
+        expect(response.code).to.be.equal(201);
+      });
+      it('should return the product created', async () => {
+        const response = await productService.addProduct({ name: 'Cellphone' });
+        expect(response.product).to.be.deep.equal({ id: 4, name: 'Cellphone' });
+      });
+    });
   });
 })

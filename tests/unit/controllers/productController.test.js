@@ -71,4 +71,81 @@ describe('Test the products\' controller layer', () => {
       });
     });
   });
+  describe('The function addProduct', () => {
+    describe('if the name is correct', () => {
+      const request = {};
+      const response = {};
+      beforeEach(() => {
+        request.body = {
+          name: 'Cellphone'
+        };
+        response.status = sinon.stub().returns(response);
+        response.json = sinon.stub().returns();
+        sinon.stub(productService, 'addProduct')
+          .resolves({ code: 201, product: { id: 4, name: 'Cellphone' } });
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return status 201', async () => {
+        await productController.addProduct(request, response);
+        expect(response.status.calledWith(201)).to.be.true;
+      });
+      it('should return the product created', async () => {
+        await productController.addProduct(request, response);
+        expect(response.json.calledWith({ id: 4, name: 'Cellphone' }))
+          .to.be.true;
+      });
+    });
+    describe('if the name has less the 5 letters', () => {
+      const request = {};
+      const response = {};
+      beforeEach(() => {
+        request.body = {
+          name: 'Cel'
+        };
+        response.status = sinon.stub().returns(response);
+        response.json = sinon.stub().returns();
+        sinon.stub(productService, 'addProduct')
+          .resolves({ code: 422, message: '"name" length must be at least 5 characters long' });
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return status 422', async () => {
+        await productController.addProduct(request, response);
+        expect(response.status.calledWith(422)).to.be.true;
+      });
+      it('should return a message', async () => {
+        await productController.addProduct(request, response);
+        expect(response.json.calledWith({ message: '"name" length must be at least 5 characters long' }))
+          .to.be.true;
+      });
+    });
+    describe('if there is no name', () => {
+      const request = {};
+      const response = {};
+      beforeEach(() => {
+        request.body = {
+          name: ''
+        };
+        response.status = sinon.stub().returns(response);
+        response.json = sinon.stub().returns();
+        sinon.stub(productService, 'addProduct')
+          .resolves({ code: 400, message: '"name" is required' });
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return status 400', async () => {
+        await productController.addProduct(request, response);
+        expect(response.status.calledWith(400)).to.be.true;
+      });
+      it('should return a message', async () => {
+        await productController.addProduct(request, response);
+        expect(response.json.calledWith({ message: '"name" is required' }))
+          .to.be.true;
+      });
+    });
+  });
 });
