@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const productController = require('./controllers/productController');
 const saleController = require('./controllers/saleController');
+const validateId = require('./middlewares/validateProdId');
 
 const app = express();
 app.use(bodyParser.json());
@@ -18,7 +19,7 @@ app.post('/products', rescue(productController.addProduct));
 
 app.get('/products/:id', rescue(productController.findById));
 
-app.post('/sales', rescue(saleController.addSale));
+app.post('/sales', rescue(validateId), rescue(saleController.addSale));
 
 app.use((err, _req, res, _next) => {
   console.log(err.message);
