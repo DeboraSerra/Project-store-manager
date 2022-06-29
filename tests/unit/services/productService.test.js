@@ -175,6 +175,7 @@ describe('Tests the products\' service layer', () => {
     describe('If the name and id are correct', () => {
       beforeEach(() => {
         sinon.stub(productModel, 'updateProduct').resolves(true);
+        sinon.stub(productModel, 'findById').resolves([mockProducts[0]]);
       });
       afterEach(() => {
         sinon.restore();
@@ -191,6 +192,46 @@ describe('Tests the products\' service layer', () => {
         const response = await productService.updateProduct({ id: 1, name: 'Cellphone' });
         expect(response).to.be.deep
           .equal({ code: 200, id: 1, name: 'Cellphone' });
+      });
+    });
+  });
+  describe('The function delete', () => {
+    describe('if the id is correct', () => {
+      beforeEach(() => {
+        sinon.stub(productModel, 'delete').resolves(true);
+        sinon.stub(productModel, 'findById').resolves([mockProducts[0]]);
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return an object', async () => {
+        const response = await productService.delete(1);
+        expect(response).to.be.a('object');
+      });
+      it('should return object with a code', async () => {
+        const response = await productService.delete(1);
+        expect(response).to.be.deep.equal({ code: 204 });
+      });
+    });
+    describe('if the id is incorrect', () => {
+      beforeEach(() => {
+        sinon.stub(productModel, 'delete').resolves(true);
+        sinon.stub(productModel, 'findById').resolves([]);
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return an object', async () => {
+        const response = await productService.delete(99);
+        expect(response).to.be.a('object');
+      });
+      it('should return object with a code', async () => {
+        const response = await productService.delete(99);
+        expect(response.code).to.be.equal(404);
+      });
+      it('should return object with a message', async () => {
+        const response = await productService.delete(99);
+        expect(response.message).to.be.equal('Product not found');
       });
     });
   });
