@@ -3,6 +3,7 @@ const express = require('express');
 const productController = require('./controllers/productController');
 
 const app = express();
+app.use(express.json());
 
 // não remova esse endpoint, é para o avaliador funcionar
 app.get('/', (_request, response) => {
@@ -10,6 +11,8 @@ app.get('/', (_request, response) => {
 });
 
 app.get('/products', rescue(productController.getAll));
+
+app.post('/products', rescue(productController.addProduct));
 
 app.get('/products/:id', rescue(productController.findById));
 

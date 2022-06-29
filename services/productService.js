@@ -11,6 +11,11 @@ const productService = {
     if (product.length === 0) return { code: 404, message: 'Product not found' };
     return { code: 200, product: product[0] };
   },
+  addProduct: async ({ name }) => {
+    if (!name) return { code: 400, message: 'The product name is required' };
+    const { id } = await productModel.addProduct({ name });
+    return { code: 201, product: { id, name } };
+  },
 };
 
 module.exports = productService;
