@@ -21,10 +21,10 @@ app.get('/products/:id', rescue(productController.findById));
 
 app.post('/sales', rescue(validateId), rescue(saleController.addSale));
 
-app.use((err, _req, res, _next) => {
-  console.log(err.message);
-  res.status(500).json({ message: err.message });
-});
+// app.use((err, _req, res, _next) => {
+//   console.log(err.message);
+//   res.status(500).json({ message: err.message });
+// });
 
 // não remova essa exportação, é para o avaliador funcionar
 // você pode registrar suas rotas normalmente, como o exemplo acima
