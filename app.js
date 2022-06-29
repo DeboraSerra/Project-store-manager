@@ -1,9 +1,11 @@
 const rescue = require('express-rescue');
 const express = require('express');
+const bodyParser = require('body-parser');
 const productController = require('./controllers/productController');
+const saleController = require('./controllers/saleController');
 
 const app = express();
-app.use(express.json());
+app.use(bodyParser.json());
 
 // não remova esse endpoint, é para o avaliador funcionar
 app.get('/', (_request, response) => {
@@ -16,7 +18,10 @@ app.post('/products', rescue(productController.addProduct));
 
 app.get('/products/:id', rescue(productController.findById));
 
+app.post('/sales', rescue(saleController.addSale));
+
 app.use((err, _req, res, _next) => {
+  console.log(err.message);
   res.status(500).json({ message: err.message });
 });
 
