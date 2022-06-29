@@ -21,6 +21,10 @@ app.get('/products/:id', rescue(productController.findById));
 
 app.post('/sales', rescue(validateId), rescue(saleController.addSale));
 
+app.get('/sales', rescue(saleController.getAll));
+
+app.get('/sales/:id', rescue(saleController.findById));
+
 // app.use((err, _req, res, _next) => {
 //   console.log(err.message);
 //   res.status(500).json({ message: err.message });

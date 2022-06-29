@@ -6,6 +6,17 @@ const saleController = {
     const { code, sold } = await saleService.addSale(body);
     res.status(code).json(sold);
   },
+  getAll: async (_req, res) => {
+    const { code, message, sales } = await saleService.getAll();
+    if (message) return res.status(code).json({ message });
+    res.status(code).json(sales);
+  },
+  findById: async (req, res) => {
+    const { id } = req.params;
+    const { code, message, sale } = await saleService.findById(id);
+    if (message) return res.status(code).json({ message });
+    res.status(code).json(sale);
+  },
 };
 
 module.exports = saleController;
