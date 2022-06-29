@@ -62,4 +62,20 @@ describe('Tests the sales\' model layer', () => {
       expect(response[0]).to.be.deep.equal(mockSalesBefore[0]);
     });
   });
+  describe('The function delete', () => {
+    beforeEach(() => {
+      sinon.stub(conn, 'execute').resolves();
+    });
+    afterEach(() => {
+      sinon.restore();
+    });
+    it('should return a boolean', async () => {
+      const response = await saleModel.delete(1);
+      expect(response).to.be.a('boolean');
+    });
+    it('should return true', async () => {
+      const response = await saleModel.delete(1);
+      expect(response).to.be.equal(true);
+    });
+  });
 });

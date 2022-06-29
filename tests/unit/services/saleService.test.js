@@ -94,4 +94,44 @@ describe('Tests the sales\' service layer', () => {
       });
     });
   });
+  describe('The function delete', () => {
+    describe('if the id is correct', () => {
+      beforeEach(() => {
+        sinon.stub(saleModel, 'delete').resolves(true);
+        sinon.stub(saleModel, 'findById').resolves(mockSaleBefore);
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return an object', async () => {
+        const response = await saleService.delete(1);
+        expect(response).to.be.a('object');
+      });
+      it('should return object with a code', async () => {
+        const response = await saleService.delete(1);
+        expect(response).to.be.deep.equal({ code: 204 });
+      });
+    });
+    describe('if the id is incorrect', () => {
+      beforeEach(() => {
+        sinon.stub(saleModel, 'delete').resolves(true);
+        sinon.stub(saleModel, 'findById').resolves([]);
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return an object', async () => {
+        const response = await saleService.delete(99);
+        expect(response).to.be.a('object');
+      });
+      it('should return object with a code', async () => {
+        const response = await saleService.delete(99);
+        expect(response.code).to.be.equal(404);
+      });
+      it('should return object with a message', async () => {
+        const response = await saleService.delete(99);
+        expect(response.message).to.be.equal('Sale not found');
+      });
+    });
+  });
 });
