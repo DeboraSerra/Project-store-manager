@@ -7,8 +7,7 @@ const saleController = {
     res.status(code).json(sold);
   },
   getAll: async (_req, res) => {
-    const { code, message, sales } = await saleService.getAll();
-    if (message) return res.status(code).json({ message });
+    const { code, sales } = await saleService.getAll();
     res.status(code).json(sales);
   },
   findById: async (req, res) => {
