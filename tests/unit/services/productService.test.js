@@ -122,4 +122,76 @@ describe('Tests the products\' service layer', () => {
       });
     });
   });
+  describe('The function updateProduct', () => {
+    describe('If the name is incorrect', () => {
+      beforeEach(() => {
+        sinon.stub(productModel, 'updateProduct').resolves(true);
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return an object', async () => {
+        const response = await productService.updateProduct({ id: 1, name: 'Cell' });
+        expect(response).to.be.a('object');
+      });
+      it('if there is no name, should return an object with the code 400', async () => {
+        const response = await productService.updateProduct({ id: 1 });
+        expect(response.code).to.be.equal(400);
+      });
+      it('if the name has less than 5 letters, should return an object with the code 422', async () => {
+        const response = await productService.updateProduct({ id: 1, name: 'cel' });
+        expect(response.code).to.be.equal(422);
+      });
+      it('if there is no name, should return a message', async () => {
+        const response = await productService.updateProduct({ id: 1 });
+        expect(response.message).to.be.equal('"name" is required');
+      });
+      it('if the name has less than 5 letters, should return a message', async () => {
+        const response = await productService.updateProduct({ id: 1, name: 'cel' });
+        expect(response.message).to.be.equal('"name" length must be at least 5 characters long');
+      });
+    });
+    describe('If the id is incorrect', () => {
+      beforeEach(() => {
+        sinon.stub(productModel, 'updateProduct').resolves(true);
+        sinon.stub(productModel, 'findById').resolves([]);
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return an object', async () => {
+        const response = await productService.updateProduct({ id: 99, name: 'Cellphone' });
+        expect(response).to.be.a('object');
+      });
+      it('should return an object with the code 404', async () => {
+        const response = await productService.updateProduct({ id: 99, name: 'cellphone' });
+        expect(response.code).to.be.equal(404);
+      });
+      it('should return a message', async () => {
+        const response = await productService.updateProduct({ id: 1, name: 'Cellphone' });
+        expect(response.message).to.be.equal('Product not found');
+      });
+    });
+    describe('If the name and id are correct', () => {
+      beforeEach(() => {
+        sinon.stub(productModel, 'updateProduct').resolves(true);
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return an object', async () => {
+        const response = await productService.updateProduct({ id: 1, name: 'Cellphone' });
+        expect(response).to.be.a('object');
+      });
+      it('should return an object with the code 200', async () => {
+        const response = await productService.updateProduct({ id: 1, name: 'Cellphone' });
+        expect(response.code).to.be.equal(200);
+      });
+      it('should return the product created', async () => {
+        const response = await productService.updateProduct({ id: 1, name: 'Cellphone' });
+        expect(response).to.be.deep
+          .equal({ code: 200, id: 1, name: 'Cellphone' });
+      });
+    });
+  });
 })

@@ -53,4 +53,20 @@ describe('Testing the products\' model layer', () => {
       expect(response).to.be.deep.equal({ id: 4 });
     });
   });
+  describe('The function updateProduct', () => {
+    beforeEach(() => {
+      sinon.stub(conn, 'execute').resolves();
+    });
+    afterEach(() => {
+      sinon.restore();
+    });
+    it('should return a boolean', async () => {
+      const response = await productModel.updateProduct({ id: 1, name: 'Martelo' });
+      expect(response).to.be.a('boolean');
+    });
+    it('should return true', async () => {
+      const response = await productModel.updateProduct({ id: 1, name: 'Cellphone' });
+      expect(response).to.be.equal(true);
+    });
+  });
 });

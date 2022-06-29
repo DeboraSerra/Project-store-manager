@@ -3,6 +3,7 @@ const { expect } = require('chai');
 const productService = require('../../../services/productService');
 const productController = require('../../../controllers/productController');
 const mockProducts = require('../mocks/mockProducts');
+const productModel = require('../../../models/productModel');
 
 describe('Test the products\' controller layer', () => {
   describe('The function getAll', () => {
@@ -144,6 +145,122 @@ describe('Test the products\' controller layer', () => {
       it('should return a message', async () => {
         await productController.addProduct(request, response);
         expect(response.json.calledWith({ message: '"name" is required' }))
+          .to.be.true;
+      });
+    });
+  });
+  describe('The function updateProduct', () => {
+    describe('if the name and id are correct', () => {
+      const request = {};
+      const response = {};
+      beforeEach(() => {
+        request.params = {
+          id: 1,
+        }
+        request.body = {
+          name: 'Cellphone'
+        };
+        response.status = sinon.stub().returns(response);
+        response.json = sinon.stub().returns();
+        sinon.stub(productService, 'updateProduct')
+          .resolves({ code: 200, id: 1, name: 'Cellphone' });
+        sinon.stub(productModel, 'findById')
+          .resolves([{ id: 1, name: 'Martelo' }]);
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return status 200', async () => {
+        await productController.updateProduct(request, response);
+        expect(response.status.calledWith(200)).to.be.true;
+      });
+      it('should return the product created', async () => {
+        await productController.updateProduct(request, response);
+        expect(response.json.calledWith({ id: 1, name: 'Cellphone' }))
+          .to.be.true;
+      });
+    });
+    describe('if the name has less the 5 letters', () => {
+      const request = {};
+      const response = {};
+      beforeEach(() => {
+        request.params = {
+          id: 1,
+        }
+        request.body = {
+          name: 'Cel'
+        };
+        response.status = sinon.stub().returns(response);
+        response.json = sinon.stub().returns();
+        sinon.stub(productService, 'updateProduct')
+          .resolves({ code: 422, message: '"name" length must be at least 5 characters long' });
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return status 422', async () => {
+        await productController.updateProduct(request, response);
+        expect(response.status.calledWith(422)).to.be.true;
+      });
+      it('should return a message', async () => {
+        await productController.updateProduct(request, response);
+        expect(response.json.calledWith({ message: '"name" length must be at least 5 characters long' }))
+          .to.be.true;
+      });
+    });
+    describe('if there is no name', () => {
+      const request = {};
+      const response = {};
+      beforeEach(() => {
+        request.params = {
+          id: 1,
+        }
+        request.body = {
+          name: ''
+        };
+        response.status = sinon.stub().returns(response);
+        response.json = sinon.stub().returns();
+        sinon.stub(productService, 'updateProduct')
+          .resolves({ code: 400, message: '"name" is required' });
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return status 400', async () => {
+        await productController.updateProduct(request, response);
+        expect(response.status.calledWith(400)).to.be.true;
+      });
+      it('should return a message', async () => {
+        await productController.updateProduct(request, response);
+        expect(response.json.calledWith({ message: '"name" is required' }))
+          .to.be.true;
+      });
+    });
+    describe('if the id is incorrect', () => {
+      const request = {};
+      const response = {};
+      beforeEach(() => {
+        request.params = {
+          id: 99,
+        }
+        request.body = {
+          name: 'Cellphone'
+        };
+        response.status = sinon.stub().returns(response);
+        response.json = sinon.stub().returns();
+        sinon.stub(productService, 'addProduct')
+          .resolves({ code: 404, message: 'Product not found' });
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return status 404', async () => {
+        await productController.updateProduct(request, response);
+        expect(response.status.calledWith(404)).to.be.true;
+      });
+      it('should return a message', async () => {
+        await productController.updateProduct(request, response);
+        expect(response.json.calledWith({ message: 'Product not found' }))
           .to.be.true;
       });
     });
