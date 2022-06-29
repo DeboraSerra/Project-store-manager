@@ -15,7 +15,7 @@ app.get('/products/:id', rescue(productController.findById));
 
 app.use((err, _req, res, _next) => {
   res.status(500).json({ message: err.message });
-})
+});
 
 // não remova essa exportação, é para o avaliador funcionar
 // você pode registrar suas rotas normalmente, como o exemplo acima

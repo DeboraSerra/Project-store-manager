@@ -10,7 +10,7 @@ const productModel = {
     const query = 'SELECT * FROM StoreManager.products WHERE id = ?';
     const [product] = await conn.execute(query, [id]);
     return product;
-  }
-}
+  },
+};
 
 module.exports = productModel;
