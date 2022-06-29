@@ -69,4 +69,20 @@ describe('Testing the products\' model layer', () => {
       expect(response).to.be.equal(true);
     });
   });
+  describe('The function delete', () => {
+    beforeEach(() => {
+      sinon.stub(conn, 'execute').resolves();
+    });
+    afterEach(() => {
+      sinon.restore();
+    });
+    it('should return a boolean', async () => {
+      const response = await productModel.delete(1);
+      expect(response).to.be.a('boolean');
+    });
+    it('should return true', async () => {
+      const response = await productModel.delete(1);
+      expect(response).to.be.equal(true);
+    });
+  });
 });
