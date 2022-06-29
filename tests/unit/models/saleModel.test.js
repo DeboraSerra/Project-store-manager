@@ -15,5 +15,18 @@ describe('Tests the sales\' model layer', () => {
       const response = await saleModel.addSale();
       expect(response).to.be.equal(3);
     });
-  })
-})
+  });
+  describe('The soldProds function', () => {
+    beforeEach(() => {
+      sinon.stub(conn, 'execute');
+    });
+    afterEach(() => {
+      sinon.restore();
+    });
+    it('should return the info about the added product', async () => {
+      const response = await saleModel
+        .soldProds({ saleId: 1, productId: 2, quantity: 1 });
+      expect(response).to.be.deep.equal({ productId: 2, quantity: 1 });
+    });
+  });
+});
