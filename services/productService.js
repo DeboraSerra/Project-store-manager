@@ -20,6 +20,17 @@ const productService = {
     const { id } = await productModel.addProduct({ name });
     return { code: 201, product: { id, name } };
   },
+  updateProduct: async ({ id, name }) => {
+    if (!name) return { code: 400, message: '"name" is required' };
+    if (name.length < 5) {
+      return { code: 422,
+        message: '"name" length must be at least 5 characters long' };
+    }
+    const exists = await productModel.findById(id);
+    if (exists.length === 0) return { code: 404, message: 'Product not found' };
+    await productModel.updateProduct({ id, name });
+    return { code: 200, id, name };
+  },
 };
 
 module.exports = productService;
