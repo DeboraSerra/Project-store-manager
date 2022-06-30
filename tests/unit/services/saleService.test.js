@@ -134,4 +134,55 @@ describe('Tests the sales\' service layer', () => {
       });
     });
   });
+  describe('The function updateSale', () => {
+    describe('if the id is correct', () => {
+      beforeEach(() => {
+        sinon.stub(saleModel, 'updateSale').resolves();
+        sinon.stub(saleModel, 'findById').resolves(mockSaleBefore);
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return an object', async () => {
+        const response = await saleService
+          .updateSale(1, [{ productId: 1, quantity: 1}]);
+        expect(response).to.be.a('object');
+      });
+      it('should return object with a code', async () => {
+        const response = await saleService
+          .updateSale(1, [{ productId: 1, quantity: 1}]);
+        expect(response.code).to.be.equal(200);
+      });
+      it('should return an object with the items updated', async () => {
+        const response = await saleService
+          .updateSale(1, [{ productId: 1, quantity: 1}]);
+        expect(response.update).to.be.deep
+          .equal({
+              saleId: 1,
+              itemsUpdated: [{ productId: 1, quantity: 1}]
+            });
+      });
+    });
+    describe('if the id is incorrect', () => {
+      beforeEach(() => {
+        sinon.stub(saleModel, 'updateSale').resolves(true);
+        sinon.stub(saleModel, 'findById').resolves([]);
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return an object', async () => {
+        const response = await saleService.updateSale(99);
+        expect(response).to.be.a('object');
+      });
+      it('should return object with a code', async () => {
+        const response = await saleService.updateSale(99);
+        expect(response.code).to.be.equal(404);
+      });
+      it('should return object with a message', async () => {
+        const response = await saleService.updateSale(99);
+        expect(response.message).to.be.equal('Sale not found');
+      });
+    });
+  })
 });

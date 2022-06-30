@@ -78,4 +78,22 @@ describe('Tests the sales\' model layer', () => {
       expect(response).to.be.equal(true);
     });
   });
+  describe('The function updateSale', () => {
+    beforeEach(() => {
+      sinon.stub(conn, 'execute').resolves();
+    });
+    afterEach(() => {
+      sinon.restore();
+    });
+    it('returns an object', async () => {
+      const response = await saleModel
+        .updateSale({ id: 1, productId: 1, quantity: 1 });
+      expect(response).to.be.a('object');
+    });
+    it('the object must have the productId and the quantity', async () => {
+      const response = await saleModel
+        .updateSale({ id: 1, productId: 1, quantity: 1 });
+      expect(response).to.be.deep.equal({ productId: 1, quantity: 1 });
+    });
+  });
 });
