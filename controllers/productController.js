@@ -30,6 +30,12 @@ const productController = {
     if (message) return res.status(code).json({ message });
     res.status(code).end();
   },
+  query: async (req, res) => {
+    let { q } = req.query;
+    if (!q) q = '';
+    const { code, products } = await productService.query(q);
+    res.status(code).json(products);
+  },
 };
 
 module.exports = productController;

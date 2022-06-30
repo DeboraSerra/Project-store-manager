@@ -37,6 +37,10 @@ const productService = {
     await productModel.delete(id);
     return { code: 204 };
   },
+  query: async (q) => {
+    const products = await productModel.query(q);
+    return { code: 200, products };
+  },
 };
 
 module.exports = productService;
