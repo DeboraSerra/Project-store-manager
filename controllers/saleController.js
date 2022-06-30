@@ -22,6 +22,13 @@ const saleController = {
     if (message) return res.status(code).json({ message });
     res.status(code).end();
   },
+  updateSale: async (req, res) => {
+    const { id } = req.params;
+    const { body } = req;
+    const { code, update, message } = await saleService.updateSale(id, body);
+    if (message) return res.status(code).json({ message });
+    res.status(code).json(update);
+  },
 };
 
 module.exports = saleController;
