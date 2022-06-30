@@ -31,7 +31,7 @@ const productController = {
     res.status(code).end();
   },
   query: async (req, res) => {
-    let { q } = req.query;
+    const { q } = req.query;
     const { code, products } = await productService.query(q);
     res.status(code).json(products);
   },
