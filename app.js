@@ -35,9 +35,9 @@ app.put('/sales/:id', rescue(validateId), rescue(saleController.updateSale));
 
 app.delete('/sales/:id', rescue(saleController.delete));
 
-// app.use((err, _req, res, _next) => {
-//   res.status(500).json({ message: err.message });
-// });
+app.use((err, _req, res, _next) => {
+  res.status(500).json({ message: err.message });
+});
 
 // não remova essa exportação, é para o avaliador funcionar
 // você pode registrar suas rotas normalmente, como o exemplo acima
