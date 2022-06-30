@@ -85,4 +85,38 @@ describe('Testing the products\' model layer', () => {
       expect(response).to.be.equal(true);
     });
   });
+  describe('The function query', () => {
+    describe('If there is no term for the search', () => {
+      beforeEach(() => {
+        sinon.stub(conn, 'execute').returns([mockProducts]);
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return an array', async () => {
+        const response = await productModel.query('');
+        expect(response).to.be.a('array');
+      });
+      it('should return an array with all the products', async () => {
+        const response = await productModel.query('');
+        expect(response).to.be.deep.equal(mockProducts);
+      });
+    });
+    describe('If there is a term for the search', () => {
+      beforeEach(() => {
+        sinon.stub(conn, 'execute').returns([[mockProducts[0]]]);
+      });
+      afterEach(() => {
+        sinon.restore();
+      });
+      it('should return an array', async () => {
+        const response = await productModel.query('Martelo');
+        expect(response).to.be.a('array');
+      });
+      it('should return an array with the correct product', async () => {
+        const response = await productModel.query('Martelo');
+        expect(response).to.be.deep.equal([mockProducts[0]]);
+      });
+    });
+  });
 });

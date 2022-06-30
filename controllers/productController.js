@@ -32,7 +32,6 @@ const productController = {
   },
   query: async (req, res) => {
     let { q } = req.query;
-    if (!q) q = '';
     const { code, products } = await productService.query(q);
     res.status(code).json(products);
   },

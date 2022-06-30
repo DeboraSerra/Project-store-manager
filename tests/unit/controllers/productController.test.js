@@ -313,4 +313,28 @@ describe('Test the products\' controller layer', () => {
       });
     });
   });
+  describe('The function query', () => {
+    const request = {};
+    const response = {};
+    beforeEach(() => {
+      request.query = {
+        q: '',
+      }
+      response.status = sinon.stub().returns(response);
+      response.json = sinon.stub().returns();
+      sinon.stub(productService, 'query')
+        .resolves({ code: 200, products: mockProducts });
+    });
+    afterEach(() => {
+      sinon.restore();
+    });
+    it('should return the code 200', async () => {
+      await productController.query(request, response);
+      expect(response.status.calledWith(200)).to.be.true;
+    });
+    it('should return the array of products', async () => {
+      await productController.query(request, response);
+      expect(response.json.calledWith(mockProducts)).to.be.true;
+    });
+  });
 });

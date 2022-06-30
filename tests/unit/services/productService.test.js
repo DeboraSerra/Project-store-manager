@@ -235,4 +235,24 @@ describe('Tests the products\' service layer', () => {
       });
     });
   });
+  describe('The function query', () => {
+    beforeEach(() => {
+      sinon.stub(productModel, 'query').resolves([mockProducts[0]]);
+    });
+    afterEach(() => {
+      sinon.restore();
+    });
+    it('returns an object', async () => {
+      const response = await productService.query('Martelo');
+      expect(response).to.be.a('object');
+    });
+    it('returns an object with the code 200', async () => {
+      const response = await productService.query('Martelo');
+      expect(response.code).to.equal(200);
+    });
+    it('returns an object with the array of matches', async () => {
+      const response = await productService.query('Martelo');
+      expect(response.products).to.be.deep.equal([mockProducts[0]]);
+    });
+  });
 })
