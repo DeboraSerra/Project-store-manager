@@ -1,0 +1,19 @@
+.home {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 500px;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.p {
+  font-size: 2rem;
+}
