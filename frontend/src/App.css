@@ -1,5 +1,10 @@
-.App {
-  text-align: center;
+:root {
+  --main: #eef1e6;
+  --main-darker: #afc7d0;
+  --secondary: #799fcb;
+  --secondary-light: #95b4cc;
+  --accent: #f9665e;
+  --accent-light: #fec9c9;
 }
 
 * {
@@ -8,39 +13,17 @@
   padding: 0;
 }
 
-header {
-  width: 100%;
-  background-color: aquamarine;
-  position: sticky;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 24px 0 0;
-  align-items: center;
-}
-
-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 12px;
-}
-
-nav {
-  flex-grow: 1;
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
-  padding: 24px;
-  align-items: stretch;
-}
-
-.link {
+::selection {
+  background-color: var(--accent-light);
   color: black;
-  text-decoration: none;
-  font-size: 2rem;
-  height: 100%;
-  flex-grow: 1;
 }
 
-.active {
-  background-color: white;
+body {
+  background-color: var(--main);
+}
+
+main {
+  padding: 32px 12px;
+  width: 100%;
+  min-height: 700px;
 }

@@ -1,28 +1,29 @@
 import { Routes, Route, NavLink } from 'react-router-dom';
 import { Home, Products, Sales } from './pages';
+import style from './styles/Header.module.css';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header>
+      <header className={ style.header }>
         <h1>Sales Manager</h1>
-        <nav>
+        <nav className={ style.nav }>
           <NavLink
             to="/"
-            className={ ({ isActive }) => !isActive ? 'link' : 'active link'}
+            className={ ({ isActive }) => !isActive ? style.link : style.active_link}
           >
             Home
           </NavLink>
           <NavLink
             to="/products"
-            className={ ({ isActive }) => !isActive ? 'link' : 'active link'}
+            className={ ({ isActive }) => !isActive ? style.link : style.active_link}
           >
             Products
           </NavLink>
           <NavLink
             to="/sales"
-            className={ ({ isActive }) => !isActive ? 'link' : 'active link'}
+            className={ ({ isActive }) => !isActive ? style.link : style.active_link}
           >
             Sales
           </NavLink>
