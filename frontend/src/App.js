@@ -30,9 +30,11 @@ function App() {
       </header>
       <main>
         <Routes>
-          <Route path="/" element={ <Home /> } />
+          <Route exact path="/" element={ <Home /> } />
           <Route path="/products" element={ <Products /> } />
+          <Route path="/products/new" element={ <Products />} />
           <Route path="/sales" element={ <Sales /> } />
+          <Route path="/sales/new" element={ <Sales /> } />
         </Routes>
       </main>
     </div>
