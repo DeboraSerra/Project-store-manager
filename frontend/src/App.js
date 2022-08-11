@@ -1,15 +1,40 @@
-import { useContext } from 'react';
+import { Routes, Route, NavLink } from 'react-router-dom';
+import { Home, Products, Sales } from './pages';
 import './App.css';
-import { MyContext } from './provider/Provider';
 
 function App() {
-  const { products, loading } = useContext(MyContext);
-  if (loading) return <p>Loading</p>
   return (
     <div className="App">
-      {products.map((prod) => (
-        <p>{prod.name}</p>
-      ))}
+      <header>
+        <h1>Sales Manager</h1>
+        <nav>
+          <NavLink
+            to="/"
+            className={ ({ isActive }) => !isActive ? 'link' : 'active link'}
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/products"
+            className={ ({ isActive }) => !isActive ? 'link' : 'active link'}
+          >
+            Products
+          </NavLink>
+          <NavLink
+            to="/sales"
+            className={ ({ isActive }) => !isActive ? 'link' : 'active link'}
+          >
+            Sales
+          </NavLink>
+        </nav>
+      </header>
+      <main>
+        <Routes>
+          <Route path="/" element={ <Home /> } />
+          <Route path="/products" element={ <Products /> } />
+          <Route path="/sales" element={ <Sales /> } />
+        </Routes>
+      </main>
     </div>
   );
 }
