@@ -1,5 +1,6 @@
 const rescue = require('express-rescue');
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const productController = require('./controllers/productController');
 const saleController = require('./controllers/saleController');
@@ -7,6 +8,7 @@ const validateId = require('./middlewares/validateProdId');
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 // não remova esse endpoint, é para o avaliador funcionar
 app.get('/', (_request, response) => {
