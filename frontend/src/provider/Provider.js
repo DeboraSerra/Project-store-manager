@@ -9,20 +9,20 @@ const Provider = ({ children }) => {
   });
   const { products, loading } = state;
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, []);
 
-  const fetchProducts = async () => {
-    const url = 'http://localhost:3005/products';
-    const response = await fetch(url);
-    const data = await response.json();
-    setState((prevSt) => ({
-      ...prevSt,
-      products: data,
-      loading: false,
-    }));
-  };
+  // const fetchProducts = async () => {
+  //   const url = 'http://localhost:3005/products';
+  //   const response = await fetch(url);
+  //   const data = await response.json();
+  //   setState((prevSt) => ({
+  //     ...prevSt,
+  //     products: data,
+  //     loading: false,
+  //   }));
+  // };
 
   const value = {
     products,
