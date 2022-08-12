@@ -1,9 +1,14 @@
 import React, { useContext } from 'react';
+import { useEffect } from 'react';
 import { MyContext } from '../provider/Provider';
 import { SMain, SH2, SP, SCard, SCardsSect, SLink } from '../styles';
 
 const Products = () => {
-  const { loading, products, setSellProduct } = useContext(MyContext);
+  const { loading, products, setSellProduct, fetchProducts } = useContext(MyContext);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const handleSale = (id) => {
     setSellProduct(id);
@@ -15,8 +20,8 @@ const Products = () => {
       <SLink to="/products/new">Add a new product</SLink>
       <SCardsSect>
         {!loading && products.map(({ id, name }) => (
-          <SLink to="/sales/new" onClick={ () => handleSale(id) }>
-            <SCard key={ id }>
+          <SLink key={ id } to="/sales/new" onClick={ () => handleSale(id) }>
+            <SCard>
               <SP>{name}</SP>
             </SCard>
           </SLink>

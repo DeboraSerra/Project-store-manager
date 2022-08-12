@@ -72,6 +72,7 @@ const Provider = ({ children }) => {
     sales,
     fetchSales,
     fetchSaleDets,
+    fetchProducts,
   };
 
   return (

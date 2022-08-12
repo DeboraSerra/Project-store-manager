@@ -60,7 +60,47 @@ const SVerticalCards = styled.section`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+`;
+
+const SForm = styled.form`
+  width: 50%;
+  margin: auto;
+`;
+
+const SInput = styled.input`
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1.5rem;
+  background-color: var(--secondary-light);
+
+  &::placeholder {
+    color: var(--main);
+  }
+`;
+
+const SButton = styled.button`
+  border: none;
+  width: 200px;
+  border-radius: 8px;
+  background-color: var(--accent-light);
+  margin: 24px;
+  padding: 12px 0;
+  font-size: 1.2rem;
+  box-shadow: 0 0 30px #c9c9c9;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    background-color: var(--secondary);
+    color: var(--accent-light);
+    box-shadow: 0 0 20px #c9c9c9;
+  }
 `
 
 export { SHeader, SHome, SHomeP, SHomeSect, SHomeSubtitle, SHomeTitle, SLink,
-  SNav, SNavLi, SNavLink, SH2, SMain, SP, SCard, SCardsSect, SListCard, SVerticalCards };
+  SNav, SNavLi, SNavLink, SH2, SMain, SP, SCard, SCardsSect, SListCard, SVerticalCards,
+  SForm, SInput, SButton };
