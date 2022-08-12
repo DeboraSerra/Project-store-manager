@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import { Home, Products, Sales } from './pages';
-import { SHeader, SNav, SNavLink, SNavLi } from './styles/Header';
+import { SHeader, SNav, SNavLink, SNavLi } from './styles';
 
 function App() {
   return (

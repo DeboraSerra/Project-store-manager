@@ -1,5 +1,5 @@
 import React from 'react';
-import { SHome, SHomeTitle, SLink, SHomeP, SHomeSubtitle, SHomeSect } from '../styles/Home';
+import { SHome, SHomeTitle, SLink, SHomeP, SHomeSubtitle, SHomeSect } from '../styles';
 
 const Home = () => {
   return (
