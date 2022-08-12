@@ -28,6 +28,7 @@ const SCard = styled.section`
   height: 150px;
   margin: 12px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: var(--secondary);
@@ -43,5 +44,23 @@ const SCardsSect = styled.section`
   width: 100%;
 `;
 
+const SListCard = styled.section`
+  display: flex;
+  width: 80%;
+  margin: 24px auto;
+  justify-content: space-around;
+  background-color: var(--secondary);
+  border-radius: 8px;
+  padding: 32px 0;
+`;
+
+const SVerticalCards = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+`
+
 export { SHeader, SHome, SHomeP, SHomeSect, SHomeSubtitle, SHomeTitle, SLink,
-  SNav, SNavLi, SNavLink, SH2, SMain, SP, SCard, SCardsSect };
+  SNav, SNavLi, SNavLink, SH2, SMain, SP, SCard, SCardsSect, SListCard, SVerticalCards };

@@ -7,8 +7,9 @@ const Provider = ({ children }) => {
     products: [],
     loading: true,
     productSell: [],
+    sales: [],
   });
-  const { products, loading, productSell } = state;
+  const { products, loading, productSell, sales } = state;
 
   useEffect(() => {
     fetchProducts();
@@ -25,6 +26,36 @@ const Provider = ({ children }) => {
     }));
   };
 
+  const fetchSales = async () => {
+    setState((prevSt) => ({
+      ...prevSt,
+      loading: true,
+    }))
+    const url = 'http://localhost:3005/sales';
+    const response = await fetch(url);
+    const data = await response.json();
+    setState((prevSt) => ({
+      ...prevSt,
+      sales: data,
+      loading: false,
+    }));
+  };
+
+  const fetchSaleDets = async (id) => {
+    setState((prevSt) => ({
+      ...prevSt,
+      loading: true,
+    }))
+    const url = `http://localhost:3005/sales/${id}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    setState((prevSt) => ({
+      ...prevSt,
+      loading: false,
+    }));
+    return data;
+  }
+
   const setSellProduct = (id) => {
     const product = products.find((prod) => prod.id === id);
     setState((prevSt) => ({
@@ -38,6 +69,9 @@ const Provider = ({ children }) => {
     loading,
     productSell,
     setSellProduct,
+    sales,
+    fetchSales,
+    fetchSaleDets,
   };
 
   return (
