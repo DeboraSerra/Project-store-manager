@@ -3,6 +3,7 @@ import Products from './Products';
 import Sales from './Sales';
 import SaleDetail from './SaleDetail';
 import AddProduct from './AddProduct';
+import AddSale from './AddSale';
 
 export {
   Home,
@@ -10,4 +11,5 @@ export {
   Sales,
   SaleDetail,
   AddProduct,
+  AddSale,
 }

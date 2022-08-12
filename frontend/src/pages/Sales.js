@@ -17,6 +17,7 @@ const Sales = () => {
   return (
     <SMain>
       <SH2>Sales</SH2>
+      <SLink to="/sales/new">Add a new sale</SLink>
       <SCardsSect>
         {!loading &&
           salesToRender().map((id) => (

@@ -14,7 +14,7 @@ const Home = () => {
         </section>
         <section>
           <SHomeSubtitle>To add a new sale</SHomeSubtitle>
-          <SLink to="/products/new">Click Here</SLink>
+          <SLink to="/sales/new">Click Here</SLink>
         </section>
       </SHomeSect>
     </SHome>

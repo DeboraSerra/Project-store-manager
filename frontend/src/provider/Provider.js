@@ -56,12 +56,34 @@ const Provider = ({ children }) => {
     return data;
   }
 
-  const setSellProduct = (id) => {
-    const product = products.find((prod) => prod.id === id);
+  const setSellProduct = (id, quantity = 1) => {
+    let newList = [];
+    if (productSell.some((prod) => prod.productId === id)) {
+      newList = productSell.filter((prod) => prod.productId !== id);
+    } else {
+      newList = [...productSell, { productId: id, quantity }];
+    }
     setState((prevSt) => ({
       ...prevSt,
-      productSell: [...prevSt.productSell, product],
+      productSell: newList,
     }))
+  }
+
+  const setQuantity = (id, quantity) => {
+    if (quantity === '0') {
+      setState((prevSt) => ({
+        ...prevSt,
+        productSell: productSell.filter(({ productId }) => productId !== id)
+      }))
+    } else {
+      setState((prevSt) => ({
+        ...prevSt,
+        productSell: productSell.map((item) => {
+          if (item.productId === id) return { productId: id, quantity: +quantity }
+          return item;
+        })
+      }))
+    }
   }
 
   const value = {
@@ -73,6 +95,7 @@ const Provider = ({ children }) => {
     fetchSales,
     fetchSaleDets,
     fetchProducts,
+    setQuantity,
   };
 
   return (
