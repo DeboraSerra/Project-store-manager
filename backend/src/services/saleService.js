@@ -1,10 +1,8 @@
 const saleModel = require('../models/saleModel');
 
-let idSale;
-
 const addProd = ({ productId, quantity }) => {
-  saleModel.soldProds({ saleId: idSale, productId, quantity });
-  return { productId, quantity };
+  const prod = saleModel.soldProds({ saleId: idSale, productId, quantity });
+  return prod;
 };
 
 const validateSale = async (id) => {
@@ -20,8 +18,10 @@ const update = ({ productId, quantity }) => {
 
 const saleService = {
   addSale: async (prods) => {
-    idSale = await saleModel.addSale();
-    const itemsSold = prods.map(addProd);
+    const idSale = await saleModel.addSale();
+    const itemsSold = await Promise.all(prods.map(({ productId, quantity }) => {
+      return saleModel.soldProds({ saleId: idSale, productId, quantity })
+    }))
     return { code: 201, sold: { id: idSale, itemsSold } };
   },
   getAll: async () => {
