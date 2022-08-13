@@ -34,16 +34,16 @@ export const SHomeSubtitle = styled.h3`
 `
 
 export const SLink = styled(Link)`
-color: black;
-text-decoration: none;
-font-size: 1.3rem;
-padding: 12px 12px 6px;
+  color: black;
+  text-decoration: none;
+  font-size: 1.3rem;
+  padding: 12px 12px 6px;
 
-&:hover {
-  opacity: 0.8;
-}
+  &:hover {
+    opacity: 0.8;
+  }
 
-&:active {
-  color: var(--accent);
-}
+  &:active {
+    color: var(--accent);
+  }
 `;

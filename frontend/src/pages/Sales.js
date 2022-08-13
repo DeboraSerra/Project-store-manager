@@ -21,8 +21,8 @@ const Sales = () => {
       <SCardsSect>
         {!loading &&
           salesToRender().map((id) => (
-            <SLink to={ `/sales/${id}` }>
-              <SCard key={ id }>
+            <SLink key={ id } to={ `/sales/${id}` }>
+              <SCard>
                 <SP>Sale number</SP>
                 <SP>{id}</SP>
               </SCard>

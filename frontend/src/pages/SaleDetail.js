@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react';
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { MyContext } from '../provider/Provider';
+import { BsTrash } from 'react-icons/bs';
 import { SH2, SListCard, SMain, SP, SVerticalCards } from '../styles';
 
 const SaleDetail = () => {
@@ -10,10 +10,12 @@ const SaleDetail = () => {
     prods: [],
     date: '',
     saleDetail: [],
+    error: '',
   });
   const { prods, date, saleDetail } = state;
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getProds();
@@ -21,7 +23,6 @@ const SaleDetail = () => {
 
   const getProds = async () => {
     const saleDetail = await fetchSaleDets(id);
-    console.log(saleDetail)
     const ids = saleDetail.map(({ productId}) => productId);
     setState((prevSt) => ({
       ...prevSt,
@@ -31,9 +32,23 @@ const SaleDetail = () => {
     }));
   }
 
+  const handleClick = async () => {
+    const url = `http://localhost:3005/sales/${id}`;
+    const obj = {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+    }
+    await fetch(url, obj);
+    navigate('/sales');
+  }
+
   return (
     <SMain>
       <SH2>Sale number {id}</SH2>
+      <BsTrash className="trash-icon" onClick={ handleClick } />
       <SP style={{ margin: '12px 0' }}>Sold in: {new Date(date).toLocaleDateString()}</SP>
       <SVerticalCards>
         {!loading && prods.map((prod, index) => (

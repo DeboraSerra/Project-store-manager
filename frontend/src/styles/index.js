@@ -15,6 +15,7 @@ const SMain = styled.section`
   justify-content: flex-start;
   align-items: center;
   height: 500px;
+  position: relative;
 `;
 
 const SP = styled.p`
@@ -33,7 +34,13 @@ const SCard = styled.section`
   align-items: center;
   background-color: var(--secondary);
   border-radius: 8px;
+  position: relative;
 `;
+
+const SSect = styled.section`
+  width: 100%;
+  height: 100%;
+`
 
 const SCardsSect = styled.section`
   display: flex;
@@ -140,4 +147,4 @@ const SNum = styled.input`
 
 export { SHeader, SHome, SHomeP, SHomeSect, SHomeSubtitle, SHomeTitle, SLink,
   SNav, SNavLi, SNavLink, SH2, SMain, SP, SCard, SCardsSect, SListCard, SVerticalCards,
-  SForm, SInput, SButton, SCheck, SLabel, SNum };
+  SForm, SInput, SButton, SCheck, SLabel, SNum, SSect };

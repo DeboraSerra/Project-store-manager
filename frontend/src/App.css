@@ -40,3 +40,22 @@ main {
   background-color: var(--secondary);
   border-radius: 10px;
 }
+
+.trash-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  color: red;
+  cursor: pointer;
+}
+
+.trash {
+  position: absolute;
+  bottom: -20px;
+  right: 50%;
+  transform: translateX(50%);
+  cursor: pointer;
+  color: red;
+}

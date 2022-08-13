@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MyContext } from '../provider/Provider';
-import { SButton, SCardsSect, SCheck, SForm, SH2, SInput, SLabel, SListCard, SMain, SNum, SP, SVerticalCards } from '../styles';
+import { SButton, SCardsSect, SCheck, SForm, SH2, SLabel, SListCard, SMain, SNum, SP, SVerticalCards } from '../styles';
 
 const AddSale = () => {
-  const { productSell, products, setSellProduct, setQuantity } = useContext(MyContext);
+  const { productSell, products, setSellProduct, setQuantity, clearSellProds } = useContext(MyContext);
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
@@ -13,8 +13,8 @@ const AddSale = () => {
     e.preventDefault();
     const url = 'http://localhost:3005/sales';
     const obj = {
-      Method: 'POST',
-      Headers: {
+      method: 'POST',
+      headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -26,6 +26,7 @@ const AddSale = () => {
       setError(data.message);
       return;
     }
+    clearSellProds();
     navigate('/sales');
   }
 
@@ -65,7 +66,7 @@ const AddSale = () => {
             </SListCard>
           ))}
         </SVerticalCards>
-        <SButton type="button" onSubmit={ handleSubmit }>
+        <SButton type="submit" onSubmit={ handleSubmit }>
           Sell
         </SButton>
       </SForm>

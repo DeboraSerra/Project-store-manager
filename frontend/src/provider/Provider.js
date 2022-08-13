@@ -86,6 +86,13 @@ const Provider = ({ children }) => {
     }
   }
 
+  const clearSellProds = () => {
+    setState((prevSt) => ({
+      ...prevSt,
+      productSell: [],
+    }))
+  }
+
   const value = {
     products,
     loading,
@@ -96,6 +103,7 @@ const Provider = ({ children }) => {
     fetchSaleDets,
     fetchProducts,
     setQuantity,
+    clearSellProds,
   };
 
   return (
